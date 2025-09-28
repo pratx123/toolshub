@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="Responsive Image Format Converter Tool - Convert images between JPG, PNG, and WebP with selectable quality and resizing options." />
+  <meta name="keywords" content="image converter, format converter, JPG to PNG, PNG to WebP, image optimization, image resizing" />
+  <meta name="author" content="Your Company or Name" />
+  <title>Responsive Image Format Converter Tool</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google AdSense script placeholder -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
+
+  <style>
+    #preview-original, #preview-converted {
+      max-width: 100%;
+      max-height: 320px;
+      border-radius: 0.375rem;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      object-fit: contain;
+      transition: box-shadow 0.3s ease;
+    }
+    #preview-original:hover, #preview-converted:hover {
+      box-shadow: 0 0 12px rgba(79,70,229, 0.6);
+    }
+    #progress-bar {
+      width: 0;
+      height: 6px;
+      background-color: #4f46e5;
+      transition: width 0.3s ease;
+      border-radius: 3px;
+    }
+    #drop-area {
+      border: 2px dashed #9ca3af;
+      border-radius: 0.5rem;
+      padding: 2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+    #drop-area.dragover {
+      background-color: #eef2ff;
+      border-color: #4f46e5;
+    }
+    #error-msg {
+      transition: all 0.3s ease;
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Responsive Image Format Converter Tool",
+    "url": "https://yourdomain.com",
+    "description": "A responsive web application for converting images between JPG, PNG, and WebP with compression and resizing options.",
+    "applicationCategory": "Image Processing",
+    "operatingSystem": "Web",
+    "browserRequirements": "Modern browser with HTML5 Canvas and JavaScript enabled"
+  }
+  </script>
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50 text-gray-800">
+
+  <header class="bg-white shadow sticky top-0 z-30">
+    <div class="container mx-auto flex flex-col md:flex-row justify-between items-center py-4 px-6 md:px-0 gap-4 md:gap-0">
+      <h1 class="text-3xl font-bold text-indigo-700">Image Format Converter</h1>
+      <div>
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:320px;height:50px"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="YOUR_AD_UNIT_ID_HEADER" aria-label="advertisement"></ins>
+      </div>
+    </div>
+  </header>
+
+  <main class="container mx-auto flex-grow px-6 py-10 flex flex-col md:flex-row gap-10">
+
+    <section class="bg-white rounded-lg shadow p-6 flex flex-col md:w-1/2" >
+
+      <label for="image-upload" class="mb-2 font-semibold cursor-pointer" id="drop-area" tabindex="0" aria-label="Drag and drop image or click to upload">
+        <input id="image-upload" type="file" accept="image/jpeg,image/png,image/webp" class="hidden" aria-describedby="upload-help" />
+        <p id="upload-help" class="text-gray-500 select-none">Drag & drop an image here, or click to select<br /><small>(Supported formats: JPG, PNG, WebP)</small></p>
+      </label>
+
+      <fieldset class="mb-4 mt-6">
+        <legend class="font-semibold mb-2">Output Format</legend>
+        <select id="output-format" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600" aria-label="Select output image format">
+          <option value="jpeg">JPG</option>
+          <option value="png">PNG</option>
+          <option value="webp" selected>WebP</option>
+        </select>
+      </fieldset>
+
+      <fieldset class="mb-4">
+        <legend class="font-semibold mb-2">Compression Quality (Lower = smaller size)</legend>
+        <input type="range" id="quality-slider" min="1" max="100" value="80" class="w-full" aria-valuenow="80" aria-valuemin="1" aria-valuemax="100" aria-label="Compression quality slider" />
+        <div class="text-right text-gray-600 mt-1 font-mono" id="quality-value" aria-live="polite">80</div>
+      </fieldset>
+
+      <fieldset class="mb-4">
+        <legend class="font-semibold mb-2">Resize Image (Optional)</legend>
+        <div class="flex gap-4 flex-col sm:flex-row">
+          <input type="number" id="resize-width" placeholder="Width (px)" min="1" class="flex-1 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600" aria-label="Resize width in pixels" />
+          <input type="number" id="resize-height" placeholder="Height (px)" min="1" class="flex-1 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600" aria-label="Resize height in pixels" />
+        </div>
+      </fieldset>
+
+      <button id="convert-btn" class="bg-indigo-600 hover:bg-indigo-700 transition text-white font-semibold rounded px-5 py-3 mt-4 focus:ring-4 focus:ring-indigo-300 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+        Convert Image
+      </button>
+
+      <div class="mt-4 bg-gray-200 rounded" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div id="progress-bar"></div>
+      </div>
+
+      <p id="error-msg" class="mt-3 text-red-600 hidden" role="alert" aria-live="assertive"></p>
+    </section>
+
+    <section class="bg-white rounded-lg shadow p-6 flex flex-col md:w-1/2 items-center">
+      <div class="w-full flex flex-col md:flex-row gap-6 justify-center">
+        <div class="flex flex-col items-center flex-1">
+          <h2 class="font-semibold mb-2 text-center">Original Image</h2>
+          <img id="preview-original" alt="Original image preview" class="mb-4 rounded" />
+        </div>
+        <div class="flex flex-col items-center flex-1">
+          <h2 class="font-semibold mb-2 text-center">Converted Image</h2>
+          <img id="preview-converted" alt="Converted image preview" class="mb-4 rounded" />
+          <a id="download-link" href="#" download="converted-image" class="text-indigo-600 font-semibold hover:underline hidden" role="link">Download Converted Image</a>
+        </div>
+      </div>
+
+      <div class="w-full mt-6">
+        <div class="mx-auto w-full max-w-md">
+          <ins class="adsbygoogle"
+               style="display:block;width:300px;height:250px"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="YOUR_AD_UNIT_ID_SIDE" aria-label="advertisement"></ins>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-white shadow text-center p-5 mt-auto text-gray-500 text-sm select-none">
+    <div class="mx-auto max-w-full">
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:728px;height:90px"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="YOUR_AD_UNIT_ID_FOOTER" aria-label="advertisement"></ins>
+    </div>
+    <p class="mt-3">&copy; 2025 Your Company. All rights reserved.</p>
+  </footer>
+
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+
+    const imageUploadInput = document.getElementById('image-upload');
+    const dropArea = document.getElementById('drop-area');
+    const previewOriginal = document.getElementById('preview-original');
+    const previewConverted = document.getElementById('preview-converted');
+    const qualitySlider = document.getElementById('quality-slider');
+    const qualityValue = document.getElementById('quality-value');
+    const convertBtn = document.getElementById('convert-btn');
+    const errorMsg = document.getElementById('error-msg');
+    const outputFormat = document.getElementById('output-format');
+    const resizeWidthInput = document.getElementById('resize-width');
+    const resizeHeightInput = document.getElementById('resize-height');
+    const downloadLink = document.getElementById('download-link');
+    const progressBar = document.getElementById('progress-bar');
+
+    let originalImage = new Image();
+    let originalImageLoaded = false;
+
+    // Show quality slider value
+    qualitySlider.addEventListener('input', () => {
+      qualityValue.textContent = qualitySlider.value;
+    });
+
+    // Handle file input and drag-n-drop
+    function handleFile(file) {
+      errorMsg.classList.add('hidden');
+      downloadLink.classList.add('hidden');
+      previewConverted.src = '';
+      if (!file.type.match(/image\/(jpeg|png|webp)/)) {
+        errorMsg.textContent = "Unsupported file format. Please upload JPG, PNG or WebP.";
+        errorMsg.classList.remove('hidden');
+        originalImageLoaded = false;
+        previewOriginal.src = '';
+        convertBtn.disabled = true;
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        originalImage.src = e.target.result;
+        originalImage.onload = () => {
+          originalImageLoaded = true;
+          previewOriginal.src = e.target.result;
+          convertBtn.disabled = false;
+        };
+      };
+      reader.readAsDataURL(file);
+    }
+
+    imageUploadInput.addEventListener('change', () => {
+      if (imageUploadInput.files.length > 0) {
+        handleFile(imageUploadInput.files[0]);
+      }
+    });
+
+    dropArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropArea.classList.add('dragover');
+    });
+
+    dropArea.addEventListener('dragleave', (e) => {
+      e.preventDefault();
+      dropArea.classList.remove('dragover');
+    });
+
+    dropArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropArea.classList.remove('dragover');
+      if (e.dataTransfer.files.length > 0) {
+        imageUploadInput.files = e.dataTransfer.files;
+        handleFile(e.dataTransfer.files[0]);
+      }
+    });
+
+    dropArea.addEventListener('keypress', (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        imageUploadInput.click();
+      }
+    });
+
+    async function convertImage(image, format, quality, width, height) {
+      return new Promise((resolve, reject) => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        let outputWidth = image.width;
+        let outputHeight = image.height;
+
+        if (width > 0 && height > 0) {
+          outputWidth = width;
+          outputHeight = height;
+        } else if (width > 0) {
+          outputWidth = width;
+          outputHeight = Math.round(image.height * (width / image.width));
+        } else if (height > 0) {
+          outputHeight = height;
+          outputWidth = Math.round(image.width * (height / image.height));
+        }
+
+        canvas.width = outputWidth;
+        canvas.height = outputHeight;
+
+        ctx.drawImage(image, 0, 0, outputWidth, outputHeight);
+
+        canvas.toBlob(
+          (blob) => {
+            if (blob) {
+              resolve(blob);
+            } else {
+              reject(new Error("Conversion failed."));
+            }
+          },
+          "image/" + format,
+          quality / 100
+        );
+      });
+    }
+
+    convertBtn.addEventListener('click', async () => {
+      errorMsg.classList.add('hidden');
+      if (!originalImageLoaded) {
+        errorMsg.textContent = "Please upload a valid image first.";
+        errorMsg.classList.remove('hidden');
+        return;
+      }
+
+      progressBar.style.width = "0%";
+
+      const format = outputFormat.value;
+      const quality = parseInt(qualitySlider.value, 10);
+      const width = parseInt(resizeWidthInput.value, 10) || 0;
+      const height = parseInt(resizeHeightInput.value, 10) || 0;
+
+      convertBtn.disabled = true;
+      convertBtn.textContent = "Converting...";
+
+      try {
+        progressBar.style.width = "30%";
+
+        const convertedBlob = await convertImage(originalImage, format, quality, width, height);
+
+        progressBar.style.width = "80%";
+
+        const convertedURL = URL.createObjectURL(convertedBlob);
+        previewConverted.src = convertedURL;
+
+        downloadLink.href = convertedURL;
+        let ext = (format === "jpeg") ? "jpg" : format;
+        downloadLink.download = `converted-image.${ext}`;
+        downloadLink.classList.remove('hidden');
+
+        progressBar.style.width = "100%";
+      } catch (err) {
+        errorMsg.textContent = err.message;
+        errorMsg.classList.remove('hidden');
+      } finally {
+        convertBtn.disabled = false;
+        convertBtn.textContent = "Convert Image";
+        setTimeout(() => { progressBar.style.width = "0%"; }, 1500);
+      }
+    });
+  </script>
+
+</body>
+</html>
