@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="Responsive image compression tool with adjustable quality, format conversion, and resizing. Optimize your images easily." />
+  <meta name="keywords" content="image compression, image optimizer, responsive, web tool, online image compression, jpg, png, webp" />
+  <meta name="author" content="Your Name or Company" />
+  <title>Responsive Image Compression Tool</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google AdSense script placeholder -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
+
+  <style>
+    #preview-original,
+    #preview-compressed {
+      max-width: 100%;
+      max-height: 300px;
+      object-fit: contain;
+      border-radius: 0.375rem;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+
+  <!-- SEO: Schema markup for tool -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Responsive Image Compression Tool",
+      "url": "https://yourdomain.com",
+      "description": "Online tool to compress images with selectable quality, format conversion, and resizing options.",
+      "applicationCategory": "Image Processing",
+      "operatingSystem": "Web",
+      "browserRequirements": "Modern browser with Canvas API support"
+    }
+  </script>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+
+  <!-- Header with title and top AdSense banner -->
+  <header class="bg-white shadow p-4 flex flex-col md:flex-row items-center justify-between sticky top-0 z-30">
+    <h1 class="text-2xl font-semibold mb-2 md:mb-0">Image Compression Tool</h1>
+    <div class="w-full md:w-1/3 text-center">
+      <!-- Top banner AdSense -->
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:320px;height:50px"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="YOUR_AD_UNIT_ID_TOP"></ins>
+    </div>
+  </header>
+
+  <main class="flex-grow container mx-auto p-4 flex flex-col md:flex-row gap-6">
+
+    <!-- Main tool area -->
+    <section class="flex-1 bg-white rounded-lg shadow p-6 flex flex-col">
+      <form id="compress-form" class="flex flex-col gap-4">
+
+        <!-- Image upload -->
+        <label for="image-upload" class="block font-medium">Select or Drag & Drop Image</label>
+        <input type="file" id="image-upload" accept="image/*" class="block w-full text-sm text-gray-700 border border-gray-300 rounded p-2 cursor-pointer" />
+
+        <!-- Compression level -->
+        <fieldset>
+          <legend class="font-medium mb-2">Compression Level</legend>
+          <div class="flex gap-4 flex-wrap">
+            <label><input type="radio" name="level" value="low" checked /> Low (80%)</label>
+            <label><input type="radio" name="level" value="medium" /> Medium (60%)</label>
+            <label><input type="radio" name="level" value="high" /> High (40%)</label>
+            <label><input type="radio" name="level" value="custom" /> Custom</label>
+          </div>
+        </fieldset>
+
+        <!-- Advanced options shown only if custom is selected -->
+        <div id="advanced-options" class="hidden flex flex-col gap-4 border border-gray-300 rounded p-4">
+          <label for="quality-slider" class="font-medium">Quality (0-100)</label>
+          <input type="range" id="quality-slider" min="1" max="100" value="80" />
+
+          <label for="format-select" class="font-medium">Output Format</label>
+          <select id="format-select" class="border border-gray-300 rounded p-2">
+            <option value="jpeg">JPEG</option>
+            <option value="png">PNG</option>
+            <option value="webp" selected>WebP</option>
+          </select>
+
+          <label for="resize-width" class="font-medium">Resize Width (px, optional)</label>
+          <input type="number" id="resize-width" min="1" placeholder="Original width if empty" class="border border-gray-300 rounded p-2" />
+
+          <label for="resize-height" class="font-medium">Resize Height (px, optional)</label>
+          <input type="number" id="resize-height" min="1" placeholder="Original height if empty" class="border border-gray-300 rounded p-2" />
+        </div>
+
+        <button type="submit" class="bg-indigo-600 text-white rounded px-4 py-2 hover:bg-indigo-700 transition-colors w-max">Compress Image</button>
+      </form>
+
+      <!-- Previews -->
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <figure>
+          <figcaption class="mb-2 font-semibold text-center">Original Image</figcaption>
+          <img id="preview-original" alt="Original image preview" />
+        </figure>
+        <figure>
+          <figcaption class="mb-2 font-semibold text-center">Compressed Image</figcaption>
+          <img id="preview-compressed" alt="Compressed image preview" />
+          <a id="download-link" href="#" download="compressed-image" class="mt-2 inline-block text-indigo-600 hover:underline">Download Compressed Image</a>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Sidebar with vertical AdSense ad space -->
+    <aside class="w-full md:w-72 bg-white rounded-lg shadow p-4 flex justify-center items-start sticky top-20 h-fit">
+      <ins class="adsbygoogle"
+           style="display:block;width:300px;height:600px"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="YOUR_AD_UNIT_ID_SIDE"></ins>
+    </aside>
+
+  </main>
+
+  <!-- Footer with ad and credits -->
+  <footer class="bg-white shadow text-center p-4 mt-auto text-sm text-gray-500">
+    <div class="mb-2">
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:728px;height:90px"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="YOUR_AD_UNIT_ID_FOOTER"></ins>
+    </div>
+    &copy; 2025 Your Company. All rights reserved.
+  </footer>
+
+  <script>
+    // Initialize ads
+    (adsbygoogle = window.adsbygoogle || []).push({});
+
+    // Elements
+    const imageUpload = document.getElementById('image-upload');
+    const previewOriginal = document.getElementById('preview-original');
+    const previewCompressed = document.getElementById('preview-compressed');
+    const compressForm = document.getElementById('compress-form');
+    const advancedOptions = document.getElementById('advanced-options');
+    const qualitySlider = document.getElementById('quality-slider');
+    const formatSelect = document.getElementById('format-select');
+    const resizeWidthInput = document.getElementById('resize-width');
+    const resizeHeightInput = document.getElementById('resize-height');
+    const downloadLink = document.getElementById('download-link');
+    const compressionRadios = compressForm.elements['level'];
+
+    let originalImage = null;
+
+    // Toggle advanced options visibility
+    compressForm.level.forEach(radio => {
+      radio.addEventListener('change', () => {
+        if (compressForm.level.value === 'custom') {
+          advancedOptions.classList.remove('hidden');
+        } else {
+          advancedOptions.classList.add('hidden');
+        }
+      });
+    });
+
+    // Load image for preview
+    imageUpload.addEventListener('change', () => {
+      const file = imageUpload.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = e => {
+        previewOriginal.src = e.target.result;
+        previewCompressed.src = '';
+        downloadLink.style.display = 'none';
+        originalImage = new Image();
+        originalImage.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Compress image function
+    async function compressImage(image, quality, format, width, height) {
+      return new Promise((resolve, reject) => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set dimensions
+        let drawWidth = image.width;
+        let drawHeight = image.height;
+
+        if (width > 0 && height > 0) {
+          drawWidth = width;
+          drawHeight = height;
+        } else if (width > 0) {
+          drawWidth = width;
+          drawHeight = (image.height / image.width) * width;
+        } else if (height > 0) {
+          drawHeight = height;
+          drawWidth = (image.width / image.height) * height;
+        }
+
+        canvas.width = drawWidth;
+        canvas.height = drawHeight;
+
+        ctx.drawImage(image, 0, 0, drawWidth, drawHeight);
+
+        canvas.toBlob(
+          blob => {
+            if (blob) {
+              resolve(blob);
+            } else {
+              reject(new Error("Compression failed."));
+            }
+          },
+          'image/' + format,
+          quality / 100
+        );
+      });
+    }
+
+    compressForm.addEventListener('submit', async e => {
+      e.preventDefault();
+
+      if (!originalImage) {
+        alert('Please select an image first.');
+        return;
+      }
+
+      // Determine quality based on level or custom
+      let quality = 0.8; // default 80%
+      let format = 'webp';
+      let width = 0;
+      let height = 0;
+
+      if (compressForm.level.value === 'low') {
+        quality = 80;
+      } else if (compressForm.level.value === 'medium') {
+        quality = 60;
+      } else if (compressForm.level.value === 'high') {
+        quality = 40;
+      } else if (compressForm.level.value === 'custom') {
+        quality = parseInt(qualitySlider.value, 10);
+        format = formatSelect.value;
+        width = parseInt(resizeWidthInput.value, 10) || 0;
+        height = parseInt(resizeHeightInput.value, 10) || 0;
+      }
+
+      try {
+        const compressedBlob = await compressImage(originalImage, quality, format, width, height);
+        const compressedURL = URL.createObjectURL(compressedBlob);
+        previewCompressed.src = compressedURL;
+        downloadLink.href = compressedURL;
+        let ext = format === 'jpeg' ? 'jpg' : format;
+        downloadLink.download = `compressed-image.${ext}`;
+        downloadLink.style.display = 'inline-block';
+      } catch (error) {
+        alert('Error compressing image: ' + error.message);
+      }
+    });
+  </script>
+</body>
+</html>
