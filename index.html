@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="All-in-one Image and PDF tools - compress, convert, edit, and optimize your files easily." />
+  <meta name="keywords" content="image tools, pdf tools, online editor, compress images, convert pdf, resize images" />
+  <meta name="author" content="Your Company or Name" />
+  <title>Image & PDF Tools Hub</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* Subtle gradient background for hero */
+    body {
+      background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col text-gray-800">
+
+  <!-- Navigation Bar -->
+  <header class="bg-white shadow sticky top-0 z-40">
+    <nav class="container mx-auto flex justify-between items-center py-4 px-6 md:px-0">
+      <a href="#" class="text-2xl font-bold text-indigo-600 hover:text-indigo-700">ToolsHub</a>
+      <ul class="hidden md:flex space-x-8 font-medium text-gray-700">
+        <li><a href="#image-tools" class="hover:text-indigo-600 transition">Image Tools</a></li>
+        <li><a href="#pdf-tools" class="hover:text-indigo-600 transition">PDF Tools</a></li>
+        <li><a href="#more" class="hover:text-indigo-600 transition">More</a></li>
+      </ul>
+      <button class="md:hidden text-indigo-600 focus:outline-none" id="menu-btn" aria-label="Toggle Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" />
+        </svg>
+      </button>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white px-6 pb-4">
+      <ul class="space-y-4 text-gray-700 font-medium">
+        <li><a href="#image-tools" class="block hover:text-indigo-600 transition">Image Tools</a></li>
+        <li><a href="#pdf-tools" class="block hover:text-indigo-600 transition">PDF Tools</a></li>
+        <li><a href="#more" class="block hover:text-indigo-600 transition">More</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="container mx-auto px-6 mt-12 md:mt-20 text-center max-w-4xl">
+    <h1 class="text-4xl md:text-5xl font-extrabold leading-tight text-indigo-700 mb-4">
+      All-in-One Image & PDF Tools
+    </h1>
+    <p class="text-lg md:text-xl text-gray-600 mb-8">
+      Compress, convert, edit, and optimize your images and PDFs easily. Fast, free, and secure.
+    </p>
+    <a href="#image-tools" class="inline-block bg-indigo-600 text-white text-lg font-semibold px-8 py-3 rounded-lg shadow hover:bg-indigo-700 transition">
+      Get Started
+    </a>
+  </section>
+
+  <!-- Tools Sections -->
+  <main class="container mx-auto px-6 mt-16 mb-20 flex flex-col gap-16">
+
+    <!-- Image Tools -->
+    <section id="image-tools">
+      <h2 class="text-3xl font-semibold text-indigo-700 mb-8 border-b-2 border-indigo-300 inline-block pb-2">
+        Image Tools
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+
+        <!-- Example Tool Card -->
+        <article class="bg-white rounded-lg shadow hover:shadow-lg transition p-6 flex flex-col">
+          <div class="mb-4 text-indigo-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12a5 5 0 100-10 5 5 0 000 10z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-center">Image Compression</h3>
+          <p class="text-gray-600 mb-4 text-center flex-grow">
+            Reduce image size without losing quality.
+          </p>
+          <a href="image-compression.html" class="mt-auto inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 text-center transition">
+            Use Tool
+          </a>
+        </article>
+
+        <article class="bg-white rounded-lg shadow hover:shadow-lg transition p-6 flex flex-col">
+          <div class="mb-4 text-indigo-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-center">Image Resizer</h3>
+          <p class="text-gray-600 mb-4 text-center flex-grow">
+            Resize images with custom dimensions.
+          </p>
+          <a href="image-resizer.html" class="mt-auto inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 text-center transition">
+            Use Tool
+          </a>
+        </article>
+
+        <article class="bg-white rounded-lg shadow hover:shadow-lg transition p-6 flex flex-col">
+          <div class="mb-4 text-indigo-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20l9-16H3l9 16z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-center">Format Converter</h3>
+          <p class="text-gray-600 mb-4 text-center flex-grow">
+            Convert images between JPG, PNG, and WebP.
+          </p>
+          <a href="image-converter.html" class="mt-auto inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 text-center transition">
+            Use Tool
+          </a>
+        </article>
+
+        <!-- Add more image tool cards as needed -->
+      </div>
+    </section>
+
+    <!-- PDF Tools -->
+    <section id="pdf-tools">
+      <h2 class="text-3xl font-semibold text-indigo-700 mb-8 border-b-2 border-indigo-300 inline-block pb-2">
+        PDF Tools
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+
+        <article class="bg-white rounded-lg shadow hover:shadow-lg transition p-6 flex flex-col">
+          <div class="mb-4 text-indigo-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20h9M12 4h9M8 8v8" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-center">PDF Compressor</h3>
+          <p class="text-gray-600 mb-4 text-center flex-grow">
+            Reduce PDF file size without losing quality.
+          </p>
+          <a href="pdf-compressor.html" class="mt-auto inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 text-center transition">
+            Use Tool
+          </a>
+        </article>
+
+        <article class="bg-white rounded-lg shadow hover:shadow-lg transition p-6 flex flex-col">
+          <div class="mb-4 text-indigo-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6h4M4 6h4l2 8h6" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-center">PDF to Word</h3>
+          <p class="text-gray-600 mb-4 text-center flex-grow">
+            Convert PDF documents to editable Word files.
+          </p>
+          <a href="pdf-to-word.html" class="mt-auto inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 text-center transition">
+            Use Tool
+          </a>
+        </article>
+
+        <article class="bg-white rounded-lg shadow hover:shadow-lg transition p-6 flex flex-col">
+          <div class="mb-4 text-indigo-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 4h8l-3 16H6l2-16z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-center">PDF Merge</h3>
+          <p class="text-gray-600 mb-4 text-center flex-grow">
+            Combine multiple PDFs into one document.
+          </p>
+          <a href="pdf-merge.html" class="mt-auto inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 text-center transition">
+            Use Tool
+          </a>
+        </article>
+
+        <!-- Add more PDF tool cards as needed -->
+
+      </div>
+    </section>
+
+    <!-- More tools section (optional) -->
+    <section id="more">
+      <h2 class="text-3xl font-semibold text-indigo-700 mb-8 border-b-2 border-indigo-300 inline-block pb-2">
+        More Tools Coming Soon
+      </h2>
+      <p class="text-center text-gray-600 max-w-xl mx-auto">Stay tuned for more powerful tools to help you manage and optimize your documents and images effortlessly.</p>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t mt-auto p-6 text-center text-gray-500 text-sm">
+    &copy; 2025 Your Company. All rights reserved.
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>
